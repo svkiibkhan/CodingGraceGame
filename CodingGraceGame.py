@@ -481,6 +481,53 @@ def get_player_name(player_info_arg):
     return player_info_arg
 
 
+def blue_waterfall_room(player_info_arg):
+    """A room that is a halleway that leads to a massive waterfall."""
+
+    # 2. Announce the room
+    print("\nYou have entered the Blue Room.")
+    print("A massive intense waterfall is at the end of the hall.")
+
+    # 3. Update player state ─── REQUIRED ────────────────────────────────────
+    player_info_arg["location"] = "Blue Room"
+
+    damage_or_healing = 15   # positive = heal, negative = damage
+    player_info_arg["health"] += damage_or_healing
+
+    item = "Aqua Trident"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Blue Room")
+
+    # 4. Display state ─── REQUIRED ──────────────────────────────────────────
+    show_player_info(player_info_arg)
+
+    # 5. Room narrative and interaction
+    print("You should head towards the waterfall.")
+    print("Type 'drink' to drink from the waterfall or type 'flee' to escape.")
+
+    action = input("> ").strip().lower()
+
+    if action == "drink":
+        print("The magical water restores your energy.")
+        return player_info_arg
+
+    elif action == "jump":
+        you_died("You jump into the waterfall and are crushed by the current.")
+
+    elif "flee" in action:
+        return "flee"
+
+    return player_info_arg
+
+
+
+
+
+
+
 def start_new_adventure(player_info_arg):
     """Presents the three-door choice and routes to the selected room.
 
