@@ -481,15 +481,15 @@ def get_player_name(player_info_arg):
     return player_info_arg
 
 
-def blue_waterfall_room(player_info_arg):
+def purple_waterfall_room(player_info_arg):
     """A room that is a halleway that leads to a massive waterfall."""
 
     # 2. Announce the room
-    print("\nYou have entered the Blue Room.")
+    print("\nYou have entered the Purple Room.")
     print("A massive intense waterfall is at the end of the hall.")
 
     # 3. Update player state ─── REQUIRED ────────────────────────────────────
-    player_info_arg["location"] = "Blue Room"
+    player_info_arg["location"] = "Purple Room"
 
     damage_or_healing = 15   # positive = heal, negative = damage
     player_info_arg["health"] += damage_or_healing
@@ -499,7 +499,7 @@ def blue_waterfall_room(player_info_arg):
         player_info_arg["inventory"].append(item)
         print(f"You found a {item}!")
 
-    player_info_arg["choices"].append("Blue Room")
+    player_info_arg["choices"].append("Purple Room")
 
     # 4. Display state ─── REQUIRED ──────────────────────────────────────────
     show_player_info(player_info_arg)
