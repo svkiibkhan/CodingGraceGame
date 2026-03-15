@@ -597,7 +597,7 @@ def white_sanctuary_room(player_info_arg):
 
     # REQUIRED display
     show_player_info(player_info_arg)
-
+    #Room Narrative
     print("\nThe priest gestures toward the fountain.")
     print("Type 'drink' to drink the sacred water.")
     print("Type 'flee' to quietly leave the sanctuary.")
