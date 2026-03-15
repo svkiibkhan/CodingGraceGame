@@ -524,6 +524,54 @@ def purple_waterfall_room(player_info_arg):
 
 
 
+def orange_flame_room(player_info_arg):
+    """The Orange Flame Room: survive a fiery chamber by making the right choice."""
+
+# 1. Announce the room
+    print("\nYou have entered the Orange Flame Room.")
+    print("The room glows with fierce orange fire and the air feels impossible to breathe.")
+
+# 2. Update player state
+    player_info_arg["location"] = "Orange Flame Room"
+
+    #Player takes fire damage
+    damage = 10
+    player_info_arg["health"] -= damage
+
+    # Add special item if not already in inventory
+    item = "Flame Shield"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
+
+    # Record that the player visited this room
+    player_info_arg["choices"].append("Orange Flame Room")
+
+# 3. Display player status
+    show_player_info(player_info_arg)
+
+# 4. Room narrative and player interaction
+    print("A wall of fire rises in front of you.")
+    print("Type 'shield' to push through the flames, 'jump' to leap into them, or 'flee' to escape.")
+
+    action = input("> ").strip().lower()
+
+    # Player survives using the shield
+    if action == "shield":
+        print("You raise the Flame Shield and force your way through safely.")
+        return player_info_arg
+    
+    # Player dies by jumping into the fire
+    elif action == "jump":
+        you_died("You jump straight into the flames and are swallowed by the fire")
+
+     # Player flees and returns to the dungeon doors
+    elif "flee" in action:
+        return "flee"
+    
+    # Any other input leads to death
+    else:
+        you_died("You freeze for too long and the fire closes in around you")
 
 
 
