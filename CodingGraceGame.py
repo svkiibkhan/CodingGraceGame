@@ -392,7 +392,6 @@ def painful_truth_of_reality_room(player_info_arg):
     else:
         you_died("You died. Well, that was tasty!")
 
-
 def green_magic_room(player_info_arg):
     """The Green Room: play Rock, Paper, Scissors against a magician.
 
@@ -523,7 +522,6 @@ def purple_waterfall_room(player_info_arg):
     return player_info_arg
 
 
-
 def orange_flame_room(player_info_arg):
     """The Orange Flame Room: survive a fiery chamber by making the right choice."""
 
@@ -574,7 +572,48 @@ def orange_flame_room(player_info_arg):
         you_died("You freeze for too long and the fire closes in around you")
 
 
+def white_sanctuary_room(player_info_arg):
+    
+    """A peaceful white sanctuary watched over by a silent priest."""
+    #Display ASCII Art
+    print_white_priest()
+    #Announce Room
+    print("\nYou have entered the White Room.")
+    print("A quiet sanctuary of white stone surrounds you.")
+    print("A mysterious priest stands beside a glowing fountain.")
 
+    # REQUIRED updates
+    player_info_arg["location"] = "White Room"
+
+    healing = 20
+    player_info_arg["health"] += healing
+
+    item = "Pearl Talisman"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You received a {item}.")
+
+    player_info_arg["choices"].append("White Room")
+
+    # REQUIRED display
+    show_player_info(player_info_arg)
+    #Room Narrative
+    print("\nThe priest gestures toward the fountain.")
+    print("Type 'drink' to drink the sacred water.")
+    print("Type 'flee' to quietly leave the sanctuary.")
+
+    action = input("> ").strip().lower()
+
+    if action == "drink":
+        print("The sacred water fills you with calm strength.")
+        return player_info_arg
+
+    elif "flee" in action:
+        print("You bow respectfully and leave the sanctuary.")
+        return "flee"
+
+    else:
+        you_died("You anger the priest and a blinding light consumes you")
 
 def start_new_adventure(player_info_arg):
     """Presents the three-door choice and routes to the selected room.
@@ -727,6 +766,33 @@ def print_guard():
     print(r"                              ||   \/  #|     |_='_(     |  =_(_ ")
     print(r"                              ||  _/\_  |    /     =\    /  '  =\ ")
     print(r"                               \\\/ \/ )/    |=____#|    '=....#| ")
+    print()
+# ---------------------------------------------------------------------------
+# PRIEST ASCII ART
+# Source: https://ascii.co.uk/art/priest
+# ---------------------------------------------------------------------------
+def print_white_priest():
+    print()
+    print(r"                    ,-----.")
+    print(r"                   #,-. ,-.#")
+    print(r"                  () a   e ()")
+    print(r"                  (   (_)   )")
+    print(r"                  #\_  -  _/#")
+    print(r"                ,'   `\"\"\"`    `.")
+    print(r"              ,'      \X/      `.")
+    print(r"             /         X     ____\\")
+    print(r"            /          v   ,`  v  `,")
+    print(r"           /    /         ( <==+==> )")
+    print(r"           `-._/|__________\   ^   /")
+    print(r"          (\\)  |______@____\  ^  /")
+    print(r"            \\  |     ( )    \ ^ /")
+    print(r"             )  |             \^/")
+    print(r"            (   |             |v")
+    print(r"           <(^)>|             |")
+    print(r"             v  |             |")
+    print(r"                |             |")
+    print(r"        ZOT     |_.--.__ .--._|")
+    print(r"                  `==='  `==='")
     print()
 
 
