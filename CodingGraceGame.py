@@ -480,15 +480,15 @@ def get_player_name(player_info_arg):
     return player_info_arg
 
 
-def blue_waterfall_room(player_info_arg):
+def purple_waterfall_room(player_info_arg):
     """A room that is a halleway that leads to a massive waterfall."""
 
     # 2. Announce the room
-    print("\nYou have entered the Blue Room.")
+    print("\nYou have entered the Purple Room.")
     print("A massive intense waterfall is at the end of the hall.")
 
     # 3. Update player state ─── REQUIRED ────────────────────────────────────
-    player_info_arg["location"] = "Blue Room"
+    player_info_arg["location"] = "Purple Room"
 
     damage_or_healing = 15   # positive = heal, negative = damage
     player_info_arg["health"] += damage_or_healing
@@ -498,7 +498,7 @@ def blue_waterfall_room(player_info_arg):
         player_info_arg["inventory"].append(item)
         print(f"You found a {item}!")
 
-    player_info_arg["choices"].append("Blue Room")
+    player_info_arg["choices"].append("Purple Room")
 
     # 4. Display state ─── REQUIRED ──────────────────────────────────────────
     show_player_info(player_info_arg)
@@ -522,12 +522,62 @@ def blue_waterfall_room(player_info_arg):
     return player_info_arg
 
 
+def orange_flame_room(player_info_arg):
+    """The Orange Flame Room: survive a fiery chamber by making the right choice."""
+
+# 1. Announce the room
+    print("\nYou have entered the Orange Flame Room.")
+    print("The room glows with fierce orange fire and the air feels impossible to breathe.")
+
+# 2. Update player state
+    player_info_arg["location"] = "Orange Flame Room"
+
+    #Player takes fire damage
+    damage = 10
+    player_info_arg["health"] -= damage
+
+    # Add special item if not already in inventory
+    item = "Flame Shield"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
+
+    # Record that the player visited this room
+    player_info_arg["choices"].append("Orange Flame Room")
+
+# 3. Display player status
+    show_player_info(player_info_arg)
+
+# 4. Room narrative and player interaction
+    print("A wall of fire rises in front of you.")
+    print("Type 'shield' to push through the flames, 'jump' to leap into them, or 'flee' to escape.")
+
+    action = input("> ").strip().lower()
+
+    # Player survives using the shield
+    if action == "shield":
+        print("You raise the Flame Shield and force your way through safely.")
+        return player_info_arg
+    
+    # Player dies by jumping into the fire
+    elif action == "jump":
+        you_died("You jump straight into the flames and are swallowed by the fire")
+
+     # Player flees and returns to the dungeon doors
+    elif "flee" in action:
+        return "flee"
+    
+    # Any other input leads to death
+    else:
+        you_died("You freeze for too long and the fire closes in around you")
+
 
 def white_sanctuary_room(player_info_arg):
+    
     """A peaceful white sanctuary watched over by a silent priest."""
-
+    #Display ASCII Art
     print_white_priest()
-
+    #Announce Room
     print("\nYou have entered the White Room.")
     print("A quiet sanctuary of white stone surrounds you.")
     print("A mysterious priest stands beside a glowing fountain.")
@@ -564,9 +614,6 @@ def white_sanctuary_room(player_info_arg):
 
     else:
         you_died("You anger the priest and a blinding light consumes you")
-
-
-
 
 def start_new_adventure(player_info_arg):
     """Presents the three-door choice and routes to the selected room.
